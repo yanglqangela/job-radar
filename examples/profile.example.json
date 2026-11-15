@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-15T09:00:00+08:00",
+  "search": {
+    "queries": [
+      { "keywords": "AI应用开发", "city": "杭州" },
+      { "keywords": "AI产品经理", "city": "上海" }
+    ],
+    "excludeCompanies": [],
+    "topN": 5
+  },
+  "meta": {
+    "name": "你的名字",
+    "yearsOfExperience": "5 年",
+    "summary": "一两句话概括你的方向与优势。"
+  },
+  "sections": {
+    "projects": [
+      {
+        "id": "projects-1",
+        "kind": "projects",
+        "title": "项目名称",
+        "sources": ["kb"],
+        "lines": [
+          "一句话说明项目做了什么",
+          "技术栈：Python、FastAPI、PostgreSQL",
+          "量化结果：从 X 到 Y"
+        ],
+        "text": "一句话说明项目做了什么\n技术栈：...\n量化结果：..."
+      }
+    ],
+    "work": [
+      {
+        "id": "work-1",
+        "kind": "work",
+        "title": "公司名称",
+        "sources": ["resume"],
+        "lines": ["职位 · 起止时间", "主要职责与成果"],
+        "text": "职位 · 起止时间\n主要职责与成果"
+      }
+    ],
+    "education": [],
+    "awards": [],
+    "certificates": [],
+    "publications": [],
+    "portfolio": []
+  },
+  "matchProfile": {
+    "skills": ["Python", "FastAPI", "PostgreSQL", "RAG"],
+    "targetTitles": ["AI应用开发", "AI产品经理"],
+    "summary": "用于岗位匹配的候选人摘要。"
+  }
+}

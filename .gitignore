@@ -1,0 +1,21 @@
+# 依赖
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 环境变量与明文数据（加密文件要提交，不要忽略）
+.env
+.env.*
+!.env.example
+/data/
+!data/.gitkeep
+*.enc.json.tmp
+*.json.tmp
+
+# 编辑器/系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

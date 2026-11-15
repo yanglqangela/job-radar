@@ -1,0 +1,36 @@
+{
+  "password": "test-password-中文-é",
+  "iterations": 100000,
+  "plaintext": {
+    "msg": "你好，世界 🌏",
+    "n": 42,
+    "nested": {
+      "项目": "RAG 问答",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "PostgreSQL"
+      ]
+    },
+    "array": [
+      1,
+      2,
+      3,
+      "四"
+    ]
+  },
+  "envelope": {
+    "v": 1,
+    "kdf": {
+      "alg": "PBKDF2-HMAC-SHA256",
+      "iterations": 100000,
+      "salt": "axMiAa72HxyXq8fLg5bzlw=="
+    },
+    "cipher": {
+      "alg": "AES-256-GCM",
+      "iv": "UHLDs41mR1mzRbuS",
+      "tagBits": 128
+    },
+    "data": "0Wto45W5qdoEDUa1GqvlPfIe6x1h3+q5li3+0OkW1kPBgDPZFawjUbCvXqPNBzm4Py+f6m3JHgEsTo8Etag+N/shIPQz69NOd8b6bz/NfduuIj1ITpbnKw5s9b6gpJ5x3retUnscZKBpkVo9PhUaHhm2AoRkqcD6W5YGbzQJlHYIJfTXnxgzKTofKQb4EjiuH5flxnOTkg=="
+  }
+}

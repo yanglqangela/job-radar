@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
+    font-family: theme("fontFamily.sans");
+  }
+  * {
+    @apply border-slate-200 dark:border-slate-800;
+  }
+  button {
+    @apply select-none;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border bg-white shadow-sm dark:bg-slate-900;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700;
+  }
+  .btn-ghost {
+    @apply btn border bg-white text-slate-700 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800;
+  }
+  .input {
+    @apply w-full rounded-xl border bg-white px-3.5 py-2.5 text-[15px] outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-100 dark:bg-slate-900 dark:focus:ring-brand-900;
+  }
+  .chip {
+    @apply inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-medium leading-5;
+  }
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .md {
+    @apply text-[14px] leading-relaxed;
+  }
+  .md p {
+    @apply my-1.5;
+  }
+  .md p:first-child {
+    @apply mt-0;
+  }
+  .md p:last-child {
+    @apply mb-0;
+  }
+  .md ul {
+    @apply my-1.5 list-disc pl-5;
+  }
+  .md ol {
+    @apply my-1.5 list-decimal pl-5;
+  }
+  .md li {
+    @apply my-0.5;
+  }
+  .md strong {
+    @apply font-semibold;
+  }
+  .md code {
+    @apply rounded bg-slate-100 px-1 py-0.5 text-[12px] dark:bg-slate-800;
+  }
+  .md pre {
+    @apply my-2 overflow-x-auto rounded-lg bg-slate-100 p-3 text-[12px] dark:bg-slate-800;
+  }
+  .md pre code {
+    @apply bg-transparent p-0;
+  }
+  .md a {
+    @apply text-brand-600 underline dark:text-brand-300;
+  }
+  .md blockquote {
+    @apply my-2 border-l-2 border-slate-300 pl-3 text-slate-500 dark:border-slate-700 dark:text-slate-400;
+  }
+  .md h1,
+  .md h2,
+  .md h3 {
+    @apply my-2 font-semibold;
+  }
+}
