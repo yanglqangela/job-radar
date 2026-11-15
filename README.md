@@ -212,3 +212,22 @@ SITE_PASSWORD_OLD='旧密码' SITE_PASSWORD_NEW='新密码' python scripts/rotat
 - 部署完整的 lq-agent（Java + Python + PostgreSQL），需要服务器；
 - 自动投递、定向简历生成等需要后端的操作；
 - 多用户与账号体系。
+
+## 备选发布方式（Actions 不可用时）
+
+如果 GitHub 账户因账单/额度问题锁定 Actions（日志提示 `your account is locked due to a billing issue`），
+站点仍可通过 **gh-pages 分支**发布：
+
+```bash
+# 1. 仓库 Settings → Pages → Source 选择 gh-pages 分支
+# 2. 每次更新数据后：
+python scripts/export_from_lq_agent.py --user-id <ID> ...
+python scripts/publish_site.py        # 构建并推送 gh-pages
+```
+
+账单恢复后，建议切换回 Actions 自动部署：
+
+```bash
+printf '%s' '{"build_type":"workflow"}' | gh api -X PUT repos/<owner>/job-radar/pages --input -
+gh workflow run deploy.yml --repo <owner>/job-radar
+```

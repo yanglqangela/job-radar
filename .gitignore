@@ -19,3 +19,6 @@ __pycache__/
 .idea/
 .DS_Store
 Thumbs.db
+
+# 分支部署构建目录
+.pages-build/
