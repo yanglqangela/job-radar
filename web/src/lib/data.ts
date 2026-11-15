@@ -77,7 +77,3 @@ export async function decryptWithPassword(
     digest: digest ? { ...EMPTY_DIGEST, ...digest } : EMPTY_DIGEST,
   };
 }
-
-export function siteUrl(): string {
-  return `${window.location.origin}${BASE.replace(/\/$/, "")}/`;
-}
