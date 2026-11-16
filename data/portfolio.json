@@ -184,7 +184,8 @@
           "url": "https://github.com/yanglqangela/agent"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/lq-agent/cover.jpg"
     },
     {
       "slug": "kb-agent",
@@ -245,7 +246,8 @@
           "url": "https://github.com/yanglqangela/kb-agent"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/kb-agent/cover.jpg"
     },
     {
       "slug": "job-radar",
@@ -312,7 +314,8 @@
           "url": "https://github.com/yanglqangela/job-radar"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/job-radar/cover.jpg"
     },
     {
       "slug": "dosh-global",
@@ -417,7 +420,8 @@
           "alt": "DO&SH 商品管理",
           "caption": "商品管理：按品牌、品类和发布状态维护"
         }
-      ]
+      ],
+      "cover": "assets/projects/dosh-cover.jpg"
     },
     {
       "slug": "cpi",
@@ -467,7 +471,8 @@
           "url": "http://cpi.do-sh.top/"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/cpi/cover.jpg"
     }
   ],
   "skills": {
