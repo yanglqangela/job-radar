@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-16",
+  "identity": {
+    "name": "杨李清",
+    "nameEn": "Yang Liqing",
+    "headline": "AI 应用开发 / AI 产品",
+    "headlineEn": "AI Engineer & Product",
+    "location": "重庆 / 杭州",
+    "availability": "开放 AI 应用开发与产品机会"
+  },
+  "contact": {
+    "email": "",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/yanglqangela"
+      }
+    ]
+  },
+  "hero": {
+    "eyebrow": "你好，我是",
+    "title": "把复杂流程，做成能用的 AI 产品",
+    "subtitleEn": "I build AI products end to end — from problem framing to shipping.",
+    "paragraphs": [
+      "计算机技术硕士在读，做过 AI 技术产品和算法工程。习惯从需求、原型、接口一路跟到上线。",
+      "最近一年主要在折腾求职场景：一个 Java + Python + React 的求职 Agent，一个可观测的知识库问答 Agent，还有一个零服务器的岗位雷达。"
+    ],
+    "scrollHint": "向下滚动"
+  },
+  "timeline": {
+    "title": "经历",
+    "titleEn": "Experience",
+    "items": [
+      {
+        "kind": "work",
+        "period": "2026.05 — 2026.07",
+        "org": "华水未来科技有限公司",
+        "role": "AI 技术产品",
+        "roleEn": "AI Product",
+        "location": "重庆",
+        "bullets": [
+          "主导 Agent 产品化接入，独立完成需求调研、场景定义与 PRD 撰写，梳理功能边界与核心链路。",
+          "对接算法与研发团队，独立撰写技术方案并推动前后端联调、接口文档与线上迭代验证。",
+          "参与海外网站从 0 到 1 开发，跟进后端服务搭建与 API 设计，理解 AI 基础设施与 Agent 技术栈。"
+        ],
+        "tags": ["Agent", "PRD", "原型设计"]
+      },
+      {
+        "kind": "work",
+        "period": "2026.01 — 2026.03",
+        "org": "中移（杭州）信息技术有限公司",
+        "role": "人工智能算法工程师",
+        "roleEn": "AI Algorithm Engineer",
+        "location": "杭州",
+        "bullets": [
+          "参与睡眠分期模型从算法研发到边缘端部署的全流程，梳理 AI 模型在智能穿戴场景的落地路径与性能指标。",
+          "定位模型复杂度瓶颈，推动参数量降低 60%、计算量降低 70%，推理延迟优化到毫秒级。",
+          "搭建 PyTorch → ONNX → TensorRT 推理加速链路，完成模型转换、量化部署与性能测试。"
+        ],
+        "tags": ["PyTorch", "ONNX", "TensorRT", "模型压缩"]
+      },
+      {
+        "kind": "education",
+        "period": "2024.09 — 2027.06",
+        "org": "西南大学",
+        "role": "计算机技术 · 硕士",
+        "roleEn": "M.Eng. in Computer Technology",
+        "location": "重庆",
+        "bullets": [
+          "211 / 双一流，计算机与信息科学学院。",
+          "研究生一等学业奖学金、校五好研究生。"
+        ],
+        "tags": ["计算机技术"]
+      },
+      {
+        "kind": "education",
+        "period": "2020.09 — 2024.07",
+        "org": "西南大学",
+        "role": "智能科学与技术 · 本科",
+        "roleEn": "B.Eng. in Intelligence Science and Technology",
+        "location": "重庆",
+        "bullets": [
+          "全国大学生数学竞赛一等奖、全国大学生数学建模竞赛二等奖、优秀学生干部。",
+          "CET-6 495。"
+        ],
+        "tags": ["智能科学与技术"]
+      }
+    ],
+    "compactItems": [
+      { "kind": "award", "title": "研究生一等学业奖学金", "meta": "西南大学 · 硕士阶段" },
+      { "kind": "award", "title": "全国大学生数学竞赛一等奖", "meta": "本科阶段" },
+      { "kind": "certificate", "title": "中级软件设计师", "meta": "职业资格" },
+      { "kind": "certificate", "title": "CET-6 495", "meta": "英语" }
+    ]
+  },
+  "projects": [
+    {
+      "slug": "lq-agent",
+      "name": "职航 OfferPilot",
+      "nameEn": "OfferPilot",
+      "year": "2026",
+      "pitch": "把「找岗位 → 改简历 → 填网申 → 面试复盘」串成一条闭环的求职 Agent。",
+      "problem": "求职链路里的信息散在招聘网站、文档和笔记里：JD 和简历对不上，每投一个岗位就要重写一版简历，面试经验也留不下来。",
+      "role": "独立设计与开发：Java 网关、Python AI 服务、React 前端，以及 Docker 部署和测试。",
+      "decisions": [
+        {
+          "title": "Java 与 Python 分工",
+          "detail": "Java 只做 JWT 网关和账号，求职业务与 AI 全在 Python；同一条功能不在两种语言里重复开发。"
+        },
+        {
+          "title": "LLM 做判断，代码兜底",
+          "detail": "网申链接按 JSON-LD、ATS、页面锚点三层定位，模型失败时走确定性规则，避免整条投递链卡死。"
+        },
+        {
+          "title": "长任务异步化",
+          "detail": "定向简历生成先返回 generating，前端轮询进度；断线后任务继续跑，回来还能拿到结果。"
+        },
+        {
+          "title": "人审后再提交",
+          "detail": "Playwright 自动填表必须由用户确认才提交；抓取到的岗位先进入待审核池，不直接进推荐。"
+        }
+      ],
+      "stack": ["Java 21", "Spring Boot", "FastAPI", "LangGraph", "React", "PostgreSQL", "Docker"],
+      "highlights": [
+        "24 张业务表、11 个内置工具 + 4 类动态工具",
+        "3 套定向简历模板，HTML 预览与 PDF 导出",
+        "Java 132 个接口，其中 84 个转发到 Python"
+      ],
+      "metrics": [
+        { "value": "51,822", "label": "行源码（2026-09 基线）" },
+        { "value": "115", "label": "测试" },
+        { "value": "4", "label": "容器一键部署" }
+      ],
+      "links": [
+        { "label": "GitHub", "url": "https://github.com/yanglqangela/agent" }
+      ],
+      "screenshots": [],
+      "sourceTitles": ["职航 OfferPilot", "OfferPilot", "lq-agent", "求职智能体"]
+    },
+    {
+      "slug": "kb-agent",
+      "name": "DocQA · 知识库问答 Agent",
+      "nameEn": "DocQA",
+      "year": "2026",
+      "pitch": "让模型自己在知识库里找答案，并把每一步决策留下来。",
+      "problem": "团队知识散在文档和聊天里，普通检索答不准；纯向量检索又容易把相似但不同的条款混在一起。",
+      "role": "独立完成 Agent 工作流、工具体系、文档抽取、检索、CLI / HTTP 双入口和离线测试。",
+      "decisions": [
+        {
+          "title": "统一的工具信封",
+          "detail": "ok / data / total / truncated / hint / error.code 六个字段，让模型能分清「没找到」「参数错了」和「文档读不了」。"
+        },
+        {
+          "title": "三层预算",
+          "detail": "步数、总工具调用数、单步工具调用数分别设上限；超限返回 incomplete 和 stop_reason，不假装答完。"
+        },
+        {
+          "title": "词法检索而不是向量",
+          "detail": "按标题、标签、要点、摘要、原文加权，换来零外部服务、可解释和可测试；代价是同义改写的召回有限。"
+        },
+        {
+          "title": "Mock 与真实模型显式分开",
+          "detail": "Mock 只验证链路和异常分支；没有配置真实模型时直接报错，不静默回退。"
+        }
+      ],
+      "stack": ["Python", "LangGraph", "FastAPI", "SQLite", "pytest"],
+      "highlights": [
+        "3 个工具：kb_list / kb_search / kb_get",
+        "4 条离线 trace + 3 条真实模型运行记录",
+        "文档不可读时明确降级，不重复无效重试"
+      ],
+      "metrics": [
+        { "value": "21", "label": "离线测试通过" },
+        { "value": "3", "label": "真实模型运行路径" },
+        { "value": "6", "label": "决策步数上限" }
+      ],
+      "links": [
+        { "label": "GitHub", "url": "https://github.com/yanglqangela/kb-agent" }
+      ],
+      "screenshots": [],
+      "sourceTitles": ["DocQA", "kb-agent", "知识库问答 Agent"]
+    },
+    {
+      "slug": "job-radar",
+      "name": "求职雷达",
+      "nameEn": "Job Radar",
+      "year": "2026",
+      "pitch": "没有服务器，也能每天收到一份按你简历筛过的岗位日报。",
+      "problem": "想每天看新岗位，又不想为一个小工具长期养一台服务器；简历和知识库也不想明文放在公开仓库里。",
+      "role": "独立完成每日管线、加密协议、Pages 前端和发布脚本。",
+      "decisions": [
+        {
+          "title": "零服务器",
+          "detail": "GitHub Actions 负责抓取、打分和推送，GitHub Pages 只出静态站；每天的岗位快照就是一个 commit，可回滚。"
+        },
+        {
+          "title": "公开仓库里存密文",
+          "detail": "简历、知识库和岗位用 AES-256-GCM 加密后再提交；浏览器输入密码本地解密，密码和 API Key 不上传。"
+        },
+        {
+          "title": "Python 与 Web Crypto 互通",
+          "detail": "两边实现逐字节兼容，PBKDF2 迭代 600,000 次，靠跨语言测试锁住格式。"
+        },
+        {
+          "title": "日志也要脱敏",
+          "detail": "公开仓库的 Actions 日志是公开的，管线只打印计数和异常类型，不打印公司、岗位、技能和 URL。"
+        }
+      ],
+      "stack": ["Python", "GitHub Actions", "React", "TypeScript", "Web Crypto", "Tavily", "DeepSeek"],
+      "highlights": [
+        "每日 Top 5 岗位推送企业微信",
+        "BM25 检索 + 浏览器直连模型问答",
+        "Actions 不可用时用 gh-pages 分支兜底发布"
+      ],
+      "metrics": [
+        { "value": "0", "label": "台服务器" },
+        { "value": "5", "label": "每日推送岗位上限" },
+        { "value": "600k", "label": "PBKDF2 迭代次数" }
+      ],
+      "links": [
+        { "label": "在线站点", "url": "https://yanglqangela.github.io/job-radar/" },
+        { "label": "GitHub", "url": "https://github.com/yanglqangela/job-radar" }
+      ],
+      "screenshots": [],
+      "sourceTitles": ["求职雷达", "job-radar"]
+    }
+  ],
+  "skills": {
+    "title": "技能",
+    "titleEn": "Skills",
+    "groups": [
+      {
+        "name": "AI 工程",
+        "nameEn": "AI Engineering",
+        "items": [
+          { "name": "LangGraph", "evidence": "kb-agent" },
+          { "name": "LLM 工具调用", "evidence": "lq-agent" },
+          { "name": "RAG / BM25 检索", "evidence": "job-radar" },
+          { "name": "结构化抽取", "evidence": "lq-agent" }
+        ]
+      },
+      {
+        "name": "后端",
+        "nameEn": "Backend",
+        "items": [
+          { "name": "Python / FastAPI", "evidence": "lq-agent" },
+          { "name": "Java / Spring Boot", "evidence": "lq-agent" },
+          { "name": "PostgreSQL", "evidence": "lq-agent" },
+          { "name": "SQLAlchemy", "evidence": "kb-agent" }
+        ]
+      },
+      {
+        "name": "前端",
+        "nameEn": "Frontend",
+        "items": [
+          { "name": "React / TypeScript", "evidence": "job-radar" },
+          { "name": "Tailwind CSS", "evidence": "job-radar" },
+          { "name": "Vite", "evidence": "job-radar" }
+        ]
+      },
+      {
+        "name": "算法",
+        "nameEn": "Algorithms",
+        "items": [
+          { "name": "PyTorch" },
+          { "name": "ONNX / TensorRT" },
+          { "name": "模型压缩与推理优化" },
+          { "name": "OCR / 文档解析", "evidence": "lq-agent" }
+        ]
+      },
+      {
+        "name": "产品与交付",
+        "nameEn": "Product & Delivery",
+        "items": [
+          { "name": "需求调研 / PRD" },
+          { "name": "原型设计" },
+          { "name": "Docker", "evidence": "lq-agent" },
+          { "name": "GitHub Actions", "evidence": "job-radar" }
+        ]
+      }
+    ]
+  },
+  "overrides": {
+    "work": {},
+    "education": {},
+    "awards": {},
+    "certificates": {},
+    "projects": {}
+  },
+  "seo": {
+    "title": "杨李清 · AI 应用开发作品集",
+    "description": "杨李清的个人作品集：AI 应用开发与 AI 产品，包含求职 Agent、知识库问答 Agent 和零服务器岗位雷达。"
+  },
+  "workspace": {
+    "label": "求职工作台",
+    "hint": "私密 · 需要密码"
+  }
+}

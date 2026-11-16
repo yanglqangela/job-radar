@@ -1,13 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { useApp } from "../lib/appContext";
 import { relativeTime } from "../lib/util";
 
+const WORKSPACE_ROUTES = new Set(["/today", "/ask", "/settings"]);
+
 export function AuthGate() {
-  const { unlock, meta, loading } = useApp();
+  const { session, unlock, meta, loading } = useApp();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  useDocumentTitle("解锁 · 求职雷达");
+
+  const rawFrom = (location.state as { from?: string } | null)?.from;
+  const from = rawFrom && WORKSPACE_ROUTES.has(rawFrom.split("?")[0]) ? rawFrom : "/today";
+
+  useEffect(() => {
+    if (session) navigate(from, { replace: true });
+  }, [session, from, navigate]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -84,6 +98,12 @@ export function AuthGate() {
       <p className="mt-6 text-center text-[11px] leading-relaxed text-slate-400">
         简历与知识库以密文存放在公开仓库，密码仅在本地推导密钥，不会上传。
       </p>
+      <Link
+        to="/"
+        className="mt-4 text-center text-xs text-slate-400 transition hover:text-slate-600 dark:hover:text-slate-300"
+      >
+        ← 返回作品集
+      </Link>
     </div>
   );
 }

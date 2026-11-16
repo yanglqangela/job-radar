@@ -49,6 +49,10 @@ def main() -> int:
         print("请先在 web/ 目录执行 npm install")
         return 2
 
+    if not (WEB / "public" / "data" / "portfolio.json").exists():
+        print("警告：缺少 web/public/data/portfolio.json，作品集首页会显示空状态。")
+        print("      请先运行 python scripts/build_portfolio.py")
+
     print("==> 构建站点（相对 base）")
     run(["npm", "run", "build"], WEB, env={**os.environ, "VITE_BASE": "./"})
 

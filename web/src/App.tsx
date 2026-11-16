@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { HashRouter, Navigate, Route, Routes } from "react-router-dom";
 import { AuthGate } from "./components/AuthGate";
-import { TabBar } from "./components/TabBar";
+import { WorkspaceLayout } from "./components/WorkspaceLayout";
 import {
   AppContext,
   type Session,
@@ -12,6 +12,7 @@ import { decryptWithKey, decryptWithPassword, loadEnvelopes, loadMeta } from "./
 import { removeRaw, storage } from "./lib/storage";
 import { clsx } from "./lib/util";
 import { AskPage } from "./pages/AskPage";
+import { PortfolioPage } from "./pages/PortfolioPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { TodayPage } from "./pages/TodayPage";
 import type { Meta } from "./types";
@@ -72,7 +73,7 @@ export default function App() {
 
   const lock = useCallback(() => {
     setSession(null);
-    window.location.hash = "#/today";
+    window.location.hash = "#/";
   }, []);
 
   const refresh = useCallback(async () => {
@@ -96,62 +97,34 @@ export default function App() {
   return (
     <HashRouter>
       <AppContext.Provider value={ctx}>
-        <div className="min-h-[100dvh] pb-24">
-          {session && <Header onLock={lock} />}
-          {session ? (
-            <main className="mx-auto w-full max-w-app">
-              <Routes>
-                <Route path="/today" element={<TodayPage />} />
-                <Route path="/ask" element={<AskPage />} />
-                <Route path="/settings" element={<SettingsPage />} />
-                <Route path="*" element={<Navigate to="/today" replace />} />
-              </Routes>
-            </main>
-          ) : (
-            <Routes>
-              <Route path="*" element={<AuthGate />} />
-            </Routes>
-          )}
-          {session && <TabBar />}
-          <div className="pointer-events-none fixed inset-x-0 bottom-20 z-50 flex flex-col items-center gap-2 px-4">
-            {toasts.map((t) => (
-              <div
-                key={t.id}
-                className={clsx(
-                  "pointer-events-auto max-w-sm rounded-xl px-3.5 py-2 text-[13px] shadow-lg",
-                  t.tone === "error"
-                    ? "bg-rose-600 text-white"
-                    : t.tone === "success"
-                      ? "bg-emerald-600 text-white"
-                      : "bg-slate-900 text-white dark:bg-slate-700",
-                )}
-              >
-                {t.message}
-              </div>
-            ))}
-          </div>
+        <Routes>
+          <Route path="/" element={<PortfolioPage />} />
+          <Route path="/unlock" element={<AuthGate />} />
+          <Route element={<WorkspaceLayout />}>
+            <Route path="/today" element={<TodayPage />} />
+            <Route path="/ask" element={<AskPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+        <div className="pointer-events-none fixed inset-x-0 bottom-20 z-50 flex flex-col items-center gap-2 px-4">
+          {toasts.map((t) => (
+            <div
+              key={t.id}
+              className={clsx(
+                "pointer-events-auto max-w-sm rounded-xl px-3.5 py-2 text-[13px] shadow-lg",
+                t.tone === "error"
+                  ? "bg-rose-600 text-white"
+                  : t.tone === "success"
+                    ? "bg-emerald-600 text-white"
+                    : "bg-slate-900 text-white dark:bg-slate-700",
+              )}
+            >
+              {t.message}
+            </div>
+          ))}
         </div>
       </AppContext.Provider>
     </HashRouter>
-  );
-}
-
-function Header({ onLock }: { onLock: () => void }) {
-  return (
-    <header className="sticky top-0 z-20 border-b bg-slate-50/90 backdrop-blur dark:bg-slate-950/90">
-      <div className="mx-auto flex h-12 max-w-app items-center justify-between px-4">
-        <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-600 text-white">
-            <svg viewBox="0 0 32 32" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="3">
-              <path d="M8 22l8-13 8 13" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
-          <span className="text-sm font-semibold tracking-tight">求职雷达</span>
-        </div>
-        <button className="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400" onClick={onLock}>
-          锁定
-        </button>
-      </div>
-    </header>
   );
 }

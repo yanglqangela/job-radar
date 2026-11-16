@@ -32,6 +32,7 @@ export default {
       },
       maxWidth: {
         app: "44rem",
+        portfolio: "76rem",
       },
     },
   },

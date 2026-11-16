@@ -31,6 +31,9 @@ jobs:
       - name: Python tests
         run: python -m pytest tests -q
 
+      - name: Portfolio data check
+        run: python scripts/build_portfolio.py --check
+
       - name: Frontend build
         working-directory: web
         run: npm ci && npm run build
