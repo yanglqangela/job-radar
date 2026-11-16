@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import os
 import shutil
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -30,11 +31,24 @@ ROOT = Path(__file__).resolve().parents[1]
 WEB = ROOT / "web"
 BUILD = ROOT / ".pages-build"
 BRANCH = "gh-pages"
+NPM = "npm.cmd" if os.name == "nt" else "npm"
 
 
 def run(cmd: list[str], cwd: Path, env: dict | None = None) -> None:
     print("$", " ".join(cmd))
     subprocess.run(cmd, cwd=cwd, check=True, env=env)
+
+
+def rmtree_force(path: Path) -> None:
+    """Windows 上 git 对象可能是只读的，删除前先去掉只读位。"""
+    if not path.exists():
+        return
+
+    def onerror(func, target, _exc_info):
+        os.chmod(target, stat.S_IWRITE)
+        func(target)
+
+    shutil.rmtree(path, onerror=onerror)
 
 
 def origin_url() -> str:
@@ -54,18 +68,42 @@ def main() -> int:
         print("      请先运行 python scripts/build_portfolio.py")
 
     print("==> 构建站点（相对 base）")
-    run(["npm", "run", "build"], WEB, env={**os.environ, "VITE_BASE": "./"})
-
-    if BUILD.exists():
-        shutil.rmtree(BUILD)
-    shutil.copytree(WEB / "dist", BUILD)
+    run([NPM, "run", "build"], WEB, env={**os.environ, "VITE_BASE": "./"})
 
     remote = origin_url()
-    if not (BUILD / ".git").exists():
+
+    # 每次从远端 gh-pages 重新克隆，避免在孤儿分支上提交导致 non-fast-forward
+    if BUILD.exists():
+        rmtree_force(BUILD)
+    cloned = subprocess.run(
+        [
+            "git",
+            "clone",
+            "--depth",
+            "1",
+            "--branch",
+            BRANCH,
+            "--single-branch",
+            remote,
+            str(BUILD),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if cloned.returncode != 0:
+        BUILD.mkdir(parents=True, exist_ok=True)
         run(["git", "init", "-b", BRANCH], BUILD)
         run(["git", "remote", "add", "origin", remote], BUILD)
-    else:
-        run(["git", "remote", "set-url", "origin", remote], BUILD)
+
+    # 只保留 .git，其余用最新构建产物替换
+    for child in BUILD.iterdir():
+        if child.name == ".git":
+            continue
+        if child.is_dir():
+            rmtree_force(child)
+        else:
+            child.unlink()
+    shutil.copytree(WEB / "dist", BUILD, dirs_exist_ok=True)
 
     run(["git", "add", "-A"], BUILD)
     status = subprocess.run(["git", "status", "--porcelain"], cwd=BUILD, capture_output=True, text=True)
@@ -87,9 +125,7 @@ def main() -> int:
     else:
         print("没有变更，跳过提交")
 
-    # 远程分支存在时先 rebase，避免多台机器发布时冲突；首次发布会失败，忽略即可
-    subprocess.run(["git", "pull", "--rebase", "origin", BRANCH], cwd=BUILD)
-    run(["git", "push", "origin", BRANCH], BUILD)
+    run(["git", "push", "origin", f"HEAD:{BRANCH}"], BUILD)
 
     print("已推送 gh-pages。Pages 会在约 1 分钟内重新构建。")
     return 0
