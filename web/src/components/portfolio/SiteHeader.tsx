@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { agentHref, workspaceHref } from "../../lib/agent";
 import { scrollToId } from "../../lib/scroll";
+import { clsx } from "../../lib/util";
 import type { PortfolioData } from "../../types.portfolio";
 
 const NAV = [
@@ -16,41 +18,67 @@ export function SiteHeader({
   identity: PortfolioData["identity"];
   workspace?: PortfolioData["workspace"];
 }) {
+  const [active, setActive] = useState("");
+
+  useEffect(() => {
+    const sections = NAV.map((item) => document.getElementById(item.id)).filter(
+      (section): section is HTMLElement => Boolean(section),
+    );
+    if (!sections.length || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-24% 0px -58% 0px", threshold: 0 },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="sticky top-0 z-40 border-b border-slate-200/70 bg-slate-50/85 backdrop-blur-md dark:border-slate-800/70 dark:bg-slate-950/80">
-      <div className="portfolio-container flex h-14 items-center justify-between gap-4">
+    <header className="pf-header">
+      <div className="pf-container flex h-16 items-center justify-between gap-6">
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0 })}
-          className="flex min-w-0 items-baseline gap-2 text-left"
+          className="flex min-w-0 items-baseline gap-2.5 text-left"
         >
-          <span className="text-sm font-semibold tracking-tight">{identity.name}</span>
-          <span className="hidden truncate text-[11px] uppercase tracking-[0.18em] text-slate-400 sm:inline">
+          <span className="pf-serif text-[17px] leading-none">{identity.name}</span>
+          <span className="hidden truncate text-[12px] text-[var(--pf-ink-soft)] sm:inline">
             {identity.headlineEn}
           </span>
         </button>
 
-        <nav className="flex items-center gap-1">
-          <div className="hidden items-center gap-1 sm:flex">
+        <nav className="flex items-center gap-5 text-[13px]" aria-label="页面导航">
+          <div className="hidden items-center gap-5 sm:flex">
             {NAV.map((item) => (
               <button
                 key={item.id}
                 type="button"
                 onClick={() => scrollToId(item.id)}
-                className="rounded-full px-3 py-1.5 text-xs font-medium text-slate-500 transition hover:bg-slate-200/60 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-100"
+                className={clsx(
+                  "pf-nav-link text-[var(--pf-ink-soft)]",
+                  active === item.id && "pf-nav-link--active",
+                )}
+                aria-current={active === item.id ? "true" : undefined}
               >
                 {item.label}
               </button>
             ))}
           </div>
-          <Link
-            to="/unlock"
-            className="ml-1 inline-flex items-center gap-1 rounded-full border border-slate-300/80 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:border-brand-400 hover:text-brand-700 dark:border-slate-700 dark:text-slate-300 dark:hover:border-brand-500 dark:hover:text-brand-200"
-          >
-            {workspace?.label || "工作台"}
-          </Link>
+          <a href={agentHref()} className="pf-text-link pf-agent-entry">
+            问 Agent
+          </a>
+          <a href={workspaceHref()} className="pf-text-link">
+            {workspace?.label || "求职工作台"}
+          </a>
         </nav>
       </div>
     </header>
   );
 }
+

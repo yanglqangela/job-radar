@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
+import { WORKSPACE_PAGES_URL } from "../lib/agent";
 import { useApp } from "../lib/appContext";
 import { relativeTime } from "../lib/util";
 
@@ -35,6 +36,26 @@ export function AuthGate() {
     } finally {
       setBusy(false);
     }
+  }
+
+  if (typeof window !== "undefined" && !window.isSecureContext) {
+    return (
+      <div className="mx-auto flex min-h-[100dvh] w-full max-w-app flex-col justify-center px-6 pb-16 text-center">
+        <h1 className="text-xl font-semibold tracking-tight">工作台需要 HTTPS</h1>
+        <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+          浏览器只在 HTTPS 下开放解密所需的 Web Crypto。当前服务器是 HTTP，请到 GitHub Pages 使用工作台。
+        </p>
+        <a href={WORKSPACE_PAGES_URL} className="btn-primary mt-6 inline-flex">
+          打开 HTTPS 工作台
+        </a>
+        <Link
+          to="/"
+          className="mt-4 text-xs text-slate-400 transition hover:text-slate-600 dark:hover:text-slate-300"
+        >
+          ← 返回作品集
+        </Link>
+      </div>
+    );
   }
 
   return (

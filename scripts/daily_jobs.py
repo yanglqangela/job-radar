@@ -205,7 +205,7 @@ def run(cfg: RunConfig) -> int:
     for (url, page, error), candidate in zip(fetched, to_fetch):
         if page is None:
             mark_seen(seen, "", candidate.get("title", ""), url, run_date, reason="failed")
-            logger.info("抓取失败，已记录（7 天内不再重试）: %s", type(error).__name__)
+            logger.info("抓取失败（%s），已记录 7 天内不再重试", error or "未知错误")
             continue
 
         if len(page.text.strip()) < 30:

@@ -1,29 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 
-/** 元素进入视口一次后保持显示；StrictMode 下 observer 会被正确清理。 */
-export function useReveal<T extends HTMLElement = HTMLDivElement>() {
+/** 元素首次进入视口后返回 true；只触发一次，用于一次性绘制的图示。 */
+export function useInView<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T | null>(null);
-  const [visible, setVisible] = useState(false);
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const element = ref.current;
-    if (!element || visible) return;
+    if (!element || inView) return;
     if (typeof IntersectionObserver === "undefined") {
-      setVisible(true);
+      setInView(true);
       return;
     }
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          setVisible(true);
+          setInView(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.3, rootMargin: "0px 0px -8% 0px" },
     );
     observer.observe(element);
     return () => observer.disconnect();
-  }, [visible]);
+  }, [inView]);
 
-  return { ref, visible };
+  return { ref, inView };
 }

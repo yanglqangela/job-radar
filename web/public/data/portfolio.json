@@ -23,7 +23,7 @@
     "subtitleEn": "I build AI products end to end — from problem framing to shipping.",
     "paragraphs": [
       "计算机技术硕士在读，做过 AI 技术产品和算法工程。习惯从需求、原型、接口一路跟到上线。",
-      "最近一年主要在折腾求职场景：一个 Java + Python + React 的求职 Agent，一个可观测的知识库问答 Agent，还有一个零服务器的岗位雷达。"
+      "最近一年主要在折腾两类系统：求职方向的 OfferPilot、DocQA 和岗位雷达，以及海外业务里的双品牌官网/后台和算力换股调研系统。"
     ],
     "scrollHint": "向下滚动"
   },
@@ -149,6 +149,7 @@
           "detail": "Playwright 自动填表必须由用户确认才提交；抓取到的岗位先进入待审核池，不直接进推荐。"
         }
       ],
+      "backend": [],
       "stack": [
         "Java 21",
         "Spring Boot",
@@ -183,7 +184,8 @@
           "url": "https://github.com/yanglqangela/agent"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/lq-agent/cover.jpg"
     },
     {
       "slug": "kb-agent",
@@ -211,6 +213,7 @@
           "detail": "Mock 只验证链路和异常分支；没有配置真实模型时直接报错，不静默回退。"
         }
       ],
+      "backend": [],
       "stack": [
         "Python",
         "LangGraph",
@@ -243,7 +246,8 @@
           "url": "https://github.com/yanglqangela/kb-agent"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/kb-agent/cover.jpg"
     },
     {
       "slug": "job-radar",
@@ -271,6 +275,7 @@
           "detail": "公开仓库的 Actions 日志是公开的，管线只打印计数和异常类型，不打印公司、岗位、技能和 URL。"
         }
       ],
+      "backend": [],
       "stack": [
         "Python",
         "GitHub Actions",
@@ -309,7 +314,165 @@
           "url": "https://github.com/yanglqangela/job-radar"
         }
       ],
-      "screenshots": []
+      "screenshots": [],
+      "cover": "assets/projects/job-radar/cover.jpg"
+    },
+    {
+      "slug": "dosh-global",
+      "name": "DO&SH 海外站",
+      "nameEn": "DO&SH",
+      "year": "2026",
+      "pitch": "把帝王洁具与欧神诺两个品牌，做成面向全球 B2B 客户的卫浴与瓷砖外贸站，并用一套后台管商品、内容、线索和权限。",
+      "problem": "两个品牌、多个品类、工程案例和新闻内容散在不同系统；海外客户从官网到询盘没有统一入口，后台也缺少可运营的 CMS、线索池和权限体系。",
+      "role": "参与海外站从 0 到 1：需求梳理、后台功能与 API 设计、前后端联调；配合品牌和运营完成商品、案例、新闻、地区与 CMS 页面配置。",
+      "decisions": [
+        {
+          "title": "双品牌，一套后台",
+          "detail": "Monarch 和 Oceano 共用商品、内容、线索与权限模型；前台按品牌分站点和视觉，避免两套系统重复维护。"
+        },
+        {
+          "title": "线索统一池",
+          "detail": "官网表单、商品详情页询盘和 Email Agent 识别汇入同一线索池，按新线索、已联系、有效、无效、已关闭流转。"
+        },
+        {
+          "title": "CMS 驱动页面",
+          "detail": "首页、品牌页、工程案例、新闻、地区和 CMS 页面由后台配置，运营改内容不用等前端发版。"
+        },
+        {
+          "title": "PBAC 权限",
+          "detail": "菜单和操作按钮按角色策略动态显示；用户、角色、操作日志集中管理，后台能力按岗位裁剪。"
+        }
+      ],
+      "backend": [
+        {
+          "title": "商品管理",
+          "detail": "双品牌商品、品类、颜色方案与发布状态统一维护，支持搜索、编辑和上下架。"
+        },
+        {
+          "title": "内容管理",
+          "detail": "工程案例、新闻、地区与 CMS 页面在后台配置，前台按品牌读取。"
+        },
+        {
+          "title": "线索池",
+          "detail": "官网表单、商品详情页询盘、Email Agent 统一进入线索池；支持状态流转、待确认线索和邮件识别。"
+        },
+        {
+          "title": "权限与审计",
+          "detail": "PBAC 策略控制菜单和按钮；用户、角色、操作日志集中管理，权限按岗位配置。"
+        },
+        {
+          "title": "数据看板",
+          "detail": "客户线索、商品和 CMS 页面实时统计，作为运营和销售的日常入口。"
+        },
+        {
+          "title": "接口层",
+          "detail": "REST API（/api/v1）+ Bearer JWT，nginx 反向代理；前台、后台和接口分离部署。"
+        }
+      ],
+      "stack": [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "REST API",
+        "JWT",
+        "nginx",
+        "CMS / PBAC"
+      ],
+      "highlights": [
+        "双品牌官网 + 独立后台控制台",
+        "49 个商品、11 个 CMS 页面在后台统一管理",
+        "线索池覆盖官网、商品详情页与 Email Agent",
+        "PBAC 角色权限与操作日志"
+      ],
+      "metrics": [
+        {
+          "value": "2",
+          "label": "品牌站点"
+        },
+        {
+          "value": "49",
+          "label": "在管商品"
+        },
+        {
+          "value": "11",
+          "label": "CMS 页面"
+        }
+      ],
+      "links": [
+        {
+          "label": "访问官网",
+          "url": "https://www.doshglobal.com"
+        }
+      ],
+      "screenshots": [
+        {
+          "src": "assets/projects/dosh-home.jpg",
+          "alt": "DO&SH 官网首页",
+          "caption": "官网首页：Monarch 与 Oceano 双品牌（图片来源：DO&SH）"
+        },
+        {
+          "src": "assets/projects/dosh-admin-overview.png",
+          "alt": "DO&SH 后台总览",
+          "caption": "后台总览：线索、商品与 CMS 页面实时指标（已隐去客户线索）"
+        },
+        {
+          "src": "assets/projects/dosh-admin-products.png",
+          "alt": "DO&SH 商品管理",
+          "caption": "商品管理：按品牌、品类和发布状态维护"
+        }
+      ],
+      "cover": "assets/projects/dosh-cover.jpg"
+    },
+    {
+      "slug": "cpi",
+      "name": "算力换股 · 公司调研系统",
+      "nameEn": "TokenStock",
+      "year": "2026",
+      "pitch": "把算力换股项目的公司调研，做成一条从资料、AI 联网检索到可研报告的流水线。",
+      "problem": "算力换股要评估大量外部企业，资料散、证据难追溯，调研结论和可研报告缺少统一的沉淀，评估也容易停留在个人笔记里。",
+      "role": "产品设计与开发：项目库、AI 调研任务、证据链、调研对话、可研报告与项目评估流程。",
+      "decisions": [
+        {
+          "title": "资料 → 调研 → 报告",
+          "detail": "项目从公司资料开始，AI 联网检索、抓取正文、证据分类，再提取和复核主张，最后进入可研报告。"
+        },
+        {
+          "title": "证据链可追溯",
+          "detail": "每个结论保留来源与证据，支持补搜、复核和基于当前任务的追问；没有依据时明确告知，不硬编结论。"
+        },
+        {
+          "title": "状态与入库",
+          "detail": "草稿、调研中、待评估、暂缓、已入库、不投资；入库只代表进入项目储备池，不等于投资批准或交易完成。"
+        },
+        {
+          "title": "评估清单",
+          "detail": "业务真实性、客户与回款、算力消纳与迁移、技术壁垒、财务现金流、合规与数据风险、估值与交易条件。"
+        }
+      ],
+      "backend": [],
+      "stack": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "REST API",
+        "LLM / Web Search",
+        "Evidence Store"
+      ],
+      "highlights": [
+        "项目库 + 资料整理",
+        "AI 联网检索 → 证据分类 → 主张复核",
+        "基于任务证据的调研对话",
+        "可研报告与项目评估（暂缓 / 入库 / 不投资）"
+      ],
+      "metrics": [],
+      "links": [
+        {
+          "label": "访问站点（需登录）",
+          "url": "http://cpi.do-sh.top/"
+        }
+      ],
+      "screenshots": [],
+      "cover": "assets/projects/cpi/cover.jpg"
     }
   ],
   "skills": {
@@ -335,6 +498,10 @@
           {
             "name": "结构化抽取",
             "evidence": "lq-agent"
+          },
+          {
+            "name": "AI 调研工作流",
+            "evidence": "cpi"
           }
         ]
       },
@@ -357,6 +524,10 @@
           {
             "name": "SQLAlchemy",
             "evidence": "kb-agent"
+          },
+          {
+            "name": "REST API / JWT",
+            "evidence": "dosh-global"
           }
         ]
       },
@@ -414,6 +585,10 @@
           {
             "name": "GitHub Actions",
             "evidence": "job-radar"
+          },
+          {
+            "name": "CMS / 后台系统",
+            "evidence": "dosh-global"
           }
         ]
       }
@@ -421,7 +596,7 @@
   },
   "seo": {
     "title": "杨李清 · AI 应用开发作品集",
-    "description": "杨李清的个人作品集：AI 应用开发与 AI 产品，包含求职 Agent、知识库问答 Agent 和零服务器岗位雷达。"
+    "description": "杨李清的个人作品集：AI 应用开发与 AI 产品，包含求职 Agent、知识库问答 Agent、岗位雷达、双品牌海外站和算力换股调研系统。"
   },
   "workspace": {
     "label": "求职工作台",

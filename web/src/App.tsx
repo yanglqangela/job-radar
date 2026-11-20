@@ -12,7 +12,9 @@ import { decryptWithKey, decryptWithPassword, loadEnvelopes, loadMeta } from "./
 import { removeRaw, storage } from "./lib/storage";
 import { clsx } from "./lib/util";
 import { AskPage } from "./pages/AskPage";
+import { AgentPage } from "./pages/AgentPage";
 import { PortfolioPage } from "./pages/PortfolioPage";
+import { ProjectPage } from "./pages/ProjectPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { TodayPage } from "./pages/TodayPage";
 import type { Meta } from "./types";
@@ -99,6 +101,8 @@ export default function App() {
       <AppContext.Provider value={ctx}>
         <Routes>
           <Route path="/" element={<PortfolioPage />} />
+          <Route path="/project/:slug" element={<ProjectPage />} />
+          <Route path="/agent" element={<AgentPage />} />
           <Route path="/unlock" element={<AuthGate />} />
           <Route element={<WorkspaceLayout />}>
             <Route path="/today" element={<TodayPage />} />

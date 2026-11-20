@@ -358,6 +358,26 @@ def build_projects(
             if value and label:
                 metrics.append({"value": value, "label": label})
 
+        backend: list[dict[str, str]] = []
+        for feature in raw.get("backend") or []:
+            if not isinstance(feature, dict):
+                continue
+            title = redact(feature.get("title"))
+            detail = redact(feature.get("detail"))
+            if title and detail:
+                backend.append({"title": title, "detail": detail})
+
+        cover = redact(raw.get("cover"))
+        cover_src = ""
+        if cover:
+            cover_items = build_screenshots(
+                [{"src": cover, "alt": redact(raw.get("name"))}],
+                public_dir,
+                warnings,
+                strict,
+            )
+            cover_src = cover_items[0]["src"] if cover_items else ""
+
         project = {
             "slug": slug,
             "name": redact(raw.get("name")),
@@ -367,11 +387,13 @@ def build_projects(
             "problem": redact(raw.get("problem")),
             "role": redact(raw.get("role")),
             "decisions": decisions,
+            "backend": backend,
             "stack": clean_lines(raw.get("stack") or []),
             "highlights": clean_lines(raw.get("highlights") or []),
             "metrics": metrics,
             "links": build_links(raw.get("links"), warnings, strict),
             "screenshots": build_screenshots(raw.get("screenshots"), public_dir, warnings, strict),
+            "cover": cover_src,
         }
         if not project["name"] or not project["pitch"]:
             message = f"项目 {slug} 缺少 name 或 pitch"

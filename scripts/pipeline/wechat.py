@@ -97,7 +97,7 @@ def send(webhook_url: str, content: str, timeout: float = 10.0) -> None:
     last_error: Exception | None = None
     for attempt in range(3):
         try:
-            with httpx.Client(timeout=timeout) as client:
+            with httpx.Client(timeout=timeout, trust_env=False) as client:
                 resp = client.post(webhook_url, json=payload)
             resp.raise_for_status()
             data = resp.json()

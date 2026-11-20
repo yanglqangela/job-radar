@@ -87,7 +87,9 @@ class LlmClient:
             "Content-Type": "application/json",
         }
         try:
-            with httpx.Client(timeout=self.timeout) as client:
+            # trust_env=False：不读取系统代理。模型 API 一般可直连；
+            # 若本机必须走代理，请设置 HTTP(S)_PROXY 由部署环境显式控制。
+            with httpx.Client(timeout=self.timeout, trust_env=False) as client:
                 resp = client.post(self.url, headers=headers, json=payload)
         except httpx.RequestError as exc:
             raise LlmError(0, f"网络错误: {type(exc).__name__}") from exc
@@ -135,7 +137,7 @@ class LlmClient:
                 # 鉴权/余额/权限问题重试无意义
                 if exc.status in (401, 402, 403):
                     raise
-                logger.warning("LLM 调用失败（第 %d 次）: HTTP %s", attempt + 1, exc.status)
+                logger.warning("LLM 调用失败（第 %d 次）: %s", attempt + 1, exc.message)
             except ValueError as exc:
                 last_error = exc
                 logger.warning("LLM JSON 解析失败（第 %d 次）", attempt + 1)

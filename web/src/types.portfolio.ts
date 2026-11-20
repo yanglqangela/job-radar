@@ -15,6 +15,11 @@ export type PortfolioDecision = {
   detail: string;
 };
 
+export type PortfolioBackendFeature = {
+  title: string;
+  detail: string;
+};
+
 export type PortfolioScreenshot = {
   src: string;
   alt?: string;
@@ -30,11 +35,13 @@ export type PortfolioProject = {
   problem?: string;
   role?: string;
   decisions: PortfolioDecision[];
+  backend?: PortfolioBackendFeature[];
   stack: string[];
   highlights: string[];
   metrics: PortfolioMetric[];
   links: PortfolioLink[];
   screenshots: PortfolioScreenshot[];
+  cover?: string;
 };
 
 export type TimelineItem = {

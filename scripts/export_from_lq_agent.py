@@ -92,7 +92,8 @@ def norm_key(value: str) -> str:
 def http_get(base_url: str, path: str, **params) -> Any:
     url = base_url.rstrip("/") + path
     try:
-        with httpx.Client(timeout=30) as client:
+        # trust_env=False：httpx 默认会读取 Windows 系统代理，把本机 8083 的请求也代理掉（502）
+        with httpx.Client(timeout=30, trust_env=False) as client:
             resp = client.get(url, params=params)
     except httpx.RequestError as exc:
         raise SystemExit(
@@ -138,13 +139,24 @@ def _dates(start: Any, end: Any) -> str:
     return a or b
 
 
+def _split_list(values: Any) -> list[str]:
+    """把 ["Python\\nFastAPI", "React"] 这类带换行/顿号的字符串拆成干净列表"""
+    out: list[str] = []
+    for value in values or []:
+        for part in re.split(r"[、,，;；\n\r/]+", str(value or "")):
+            part = part.strip()
+            if part and part not in out:
+                out.append(part)
+    return out
+
+
 def _flatten(content: dict, entry_type: str) -> list[str]:
     lines: list[str] = []
     if entry_type == "project":
         lines += [content.get("description", "")]
-        tech = content.get("tech_stack") or []
+        tech = _split_list(content.get("tech_stack"))
         if tech:
-            lines.append("技术栈：" + "、".join(str(t) for t in tech))
+            lines.append("技术栈：" + "、".join(tech))
         lines += [str(h) for h in (content.get("highlights") or [])]
         for key, label in DEEP_DIVE_LABELS.items():
             if content.get(key):
@@ -225,7 +237,7 @@ def kb_items(entries: list[dict]) -> tuple[dict[str, list[dict]], Optional[str]]
                 "title": title,
                 "lines": lines,
                 "source": "kb",
-                "tech": list(content.get("tech_stack") or []),
+                "tech": _split_list(content.get("tech_stack")),
                 "highlights": list(content.get("highlights") or []),
             }
         )
@@ -265,7 +277,7 @@ def resume_items(resumes: list[dict]) -> dict[str, list[dict]]:
                         "title": str(title),
                         "lines": lines,
                         "source": "resume",
-                        "tech": list(raw.get("tech_stack") or []),
+                        "tech": _split_list(raw.get("tech_stack")),
                         "highlights": list(raw.get("highlights") or []),
                     }
                 )
@@ -350,7 +362,7 @@ def build_profile(
     sections = merge_sections(kb_sections, resume_sections)
 
     parsed = (resumes[0].get("parsed_data") or {}) if resumes else {}
-    skills = list(parsed.get("skills") or [])
+    skills = _split_list(parsed.get("skills"))
     for section in ("projects", "portfolio"):
         for item in sections.get(section, []):
             skills.extend(item.get("_tech") or [])

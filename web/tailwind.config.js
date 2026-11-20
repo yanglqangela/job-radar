@@ -15,6 +15,14 @@ export default {
           "Segoe UI",
           "sans-serif",
         ],
+        display: [
+          "Noto Serif SC Site",
+          "Songti SC",
+          "Noto Serif CJK SC",
+          "Source Han Serif SC",
+          "SimSun",
+          "serif",
+        ],
       },
       colors: {
         brand: {
@@ -32,7 +40,6 @@ export default {
       },
       maxWidth: {
         app: "44rem",
-        portfolio: "76rem",
       },
     },
   },

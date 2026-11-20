@@ -32,26 +32,27 @@ export function PortfolioPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[100dvh] flex-col items-center justify-center gap-4 bg-slate-50 dark:bg-slate-950">
-        <span className="h-6 w-6 animate-spin rounded-full border-2 border-brand-200 border-t-brand-600" />
-        <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Loading portfolio</p>
+      <div className="pf flex min-h-[100dvh] items-center justify-center">
+        <p className="flex items-center gap-3 text-[13px] text-[var(--pf-ink-soft)]">
+          <span className="pf-status-dot" aria-hidden="true" />
+          正在读取作品集
+        </p>
       </div>
     );
   }
 
   if (!data) {
     return (
-      <div className="flex min-h-[100dvh] flex-col items-center justify-center px-6 text-center">
-        <p className="portfolio-eyebrow">Portfolio</p>
-        <h1 className="mt-3 text-2xl font-semibold tracking-tight">作品集正在准备中</h1>
-        <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-          还没有找到 data/portfolio.json。先运行
-          <code className="mx-1 rounded bg-slate-100 px-1 py-0.5 text-[12px] dark:bg-slate-800">
+      <div className="pf flex min-h-[100dvh] flex-col items-center justify-center px-6 text-center">
+        <h1 className="pf-serif text-2xl">作品集还没生成</h1>
+        <p className="mt-3 max-w-md text-[13px] leading-relaxed text-[var(--pf-ink-soft)]">
+          没有找到 data/portfolio.json。先运行
+          <code className="mx-1 border-b border-[var(--pf-rule-strong)] pb-0.5">
             python scripts/build_portfolio.py
           </code>
           生成公开数据。
         </p>
-        <Link to="/unlock" className="btn-ghost mt-6">
+        <Link to="/unlock" className="pf-text-link mt-6 text-[13px]">
           进入求职工作台
         </Link>
       </div>
@@ -59,16 +60,17 @@ export function PortfolioPage() {
   }
 
   return (
-    <div className="min-h-[100dvh] overflow-x-clip bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="pf min-h-[100dvh] overflow-x-clip">
       <ScrollProgress />
       <SiteHeader identity={data.identity} workspace={data.workspace} />
       <main>
         <HeroSection data={data} />
-        <TimelineSection data={data} />
         <ProjectDeck data={data} />
+        <TimelineSection data={data} />
         <SkillsSection data={data} reduced={reduced} />
         <ContactFooter data={data} />
       </main>
+      <div className="pf-grain" aria-hidden="true" />
     </div>
   );
 }
