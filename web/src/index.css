@@ -81,6 +81,50 @@
     background: var(--pf-paper);
     color: var(--pf-ink);
     color-scheme: dark;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .pf::before,
+  .pf::after {
+    content: "";
+    position: fixed;
+    inset: -18%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .pf::before {
+    background:
+      radial-gradient(34rem 24rem at 12% 18%, rgba(80, 112, 255, 0.22), transparent 70%),
+      radial-gradient(30rem 26rem at 84% 70%, rgba(185, 94, 255, 0.18), transparent 68%);
+    filter: blur(16px);
+    animation: pf-nebula-drift 24s ease-in-out infinite alternate;
+  }
+
+  .pf::after {
+    opacity: 0.34;
+    background-image:
+      radial-gradient(circle, rgba(196, 229, 255, 0.72) 0 1px, transparent 1.4px),
+      radial-gradient(circle, rgba(178, 153, 255, 0.46) 0 1px, transparent 1.5px);
+    background-size: 11rem 13rem, 19rem 17rem;
+    animation: pf-star-drift 42s linear infinite;
+  }
+
+  .pf > main,
+  .pf > header {
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes pf-nebula-drift {
+    0% { transform: translate3d(-2%, -1%, 0) scale(1); }
+    100% { transform: translate3d(3%, 2%, 0) scale(1.08); }
+  }
+
+  @keyframes pf-star-drift {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-3rem, 2rem, 0); }
   }
 
   .pf ::selection {

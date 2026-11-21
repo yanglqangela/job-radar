@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ProjectDiagram } from "../components/portfolio/ProjectDiagram";
 import { ProjectGallery } from "../components/portfolio/ProjectGallery";
 import { ScrollProgress } from "../components/portfolio/ScrollProgress";
+import { SiteHeader } from "../components/portfolio/SiteHeader";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { assetUrl, loadPortfolio } from "../lib/portfolio";
 import type { PortfolioData } from "../types.portfolio";
@@ -70,17 +71,7 @@ export function ProjectPage() {
     <div className="pf min-h-[100dvh] overflow-x-clip">
       <ScrollProgress />
 
-      <header className="pf-detail-header">
-        <div className="pf-container flex h-16 items-center justify-between gap-6">
-          <Link to="/" className="pf-text-link text-[13px]">
-            ← 返回作品集
-          </Link>
-          <span className="pf-serif text-[15px]">{data.identity.name}</span>
-          <span className="hidden text-[12px] text-[var(--pf-ink-soft)] sm:inline">
-            {data.identity.headlineEn}
-          </span>
-        </div>
-      </header>
+      <SiteHeader identity={data.identity} workspace={data.workspace} />
 
       <main>
         <section className="pf-detail-hero">

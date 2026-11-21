@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
-import { Link } from "react-router-dom";
 import { Markdown } from "../components/Markdown";
 import { ScrollProgress } from "../components/portfolio/ScrollProgress";
+import { SiteHeader } from "../components/portfolio/SiteHeader";
 import { useDocumentTitle } from "../hooks/useDocumentTitle";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { AGENT_SERVER_URL, isMirrorHost } from "../lib/agent";
@@ -146,17 +146,7 @@ export function AgentPage() {
     return (
       <div className="pf min-h-[100dvh]">
         <ScrollProgress />
-        <header className="pf-detail-header">
-          <div className="pf-container flex h-16 items-center justify-between gap-6">
-            <Link to="/" className="pf-text-link text-[13px]">
-              ← 返回作品集
-            </Link>
-            <span className="pf-serif text-[15px]">杨李清</span>
-            <span className="hidden text-[12px] text-[var(--pf-ink-soft)] sm:inline">
-              Public Agent
-            </span>
-          </div>
-        </header>
+        <SiteHeader identity={{ name: "杨李清", headlineEn: "Public Agent" }} />
         <main className="pf-container pf-agent-mirror">
           <p className="pf-agent-kicker">公开知识库 Agent</p>
           <h1 className="pf-agent-title">Agent 运行在服务器站点</h1>
@@ -176,17 +166,7 @@ export function AgentPage() {
   return (
     <div className="pf min-h-[100dvh]">
       <ScrollProgress />
-      <header className="pf-detail-header">
-        <div className="pf-container flex h-16 items-center justify-between gap-6">
-          <Link to="/" className="pf-text-link text-[13px]">
-            ← 返回作品集
-          </Link>
-          <span className="pf-serif text-[15px]">杨李清</span>
-          <span className="hidden text-[12px] text-[var(--pf-ink-soft)] sm:inline">
-            公开知识库 · Powered by kb-agent
-          </span>
-        </div>
-      </header>
+      <SiteHeader identity={{ name: "杨李清", headlineEn: "Public Agent" }} />
 
       <main className="pf-container pf-agent-layout">
         <div className="pf-agent-side">

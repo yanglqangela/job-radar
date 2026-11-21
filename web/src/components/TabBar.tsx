@@ -36,7 +36,7 @@ const ITEMS = [
 
 export function TabBar() {
   return (
-    <nav className="safe-bottom fixed inset-x-0 bottom-0 z-30 border-t bg-white/95 backdrop-blur dark:bg-slate-900/95">
+    <nav className="pf-workspace-tabbar safe-bottom fixed inset-x-0 bottom-0 z-30 border-t backdrop-blur">
       <div className="mx-auto flex max-w-app items-stretch">
         {ITEMS.map((item) => (
           <NavLink

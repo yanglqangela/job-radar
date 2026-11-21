@@ -33,8 +33,8 @@ export function WorkspaceLayout() {
   }
 
   return (
-    <div className="min-h-[100dvh] pb-24">
-      <header className="sticky top-0 z-20 border-b bg-slate-50/90 backdrop-blur dark:bg-slate-950/90">
+    <div className="pf pf-workspace min-h-[100dvh] pb-24">
+      <header className="pf-workspace-header sticky top-0 z-20 border-b backdrop-blur">
         <div className="mx-auto flex h-12 max-w-app items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-brand-600 text-white">
@@ -58,7 +58,7 @@ export function WorkspaceLayout() {
           </button>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-app">
+      <main className="pf-workspace-main mx-auto w-full max-w-app">
         <Outlet />
       </main>
       <TabBar />

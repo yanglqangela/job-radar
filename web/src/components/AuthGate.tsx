@@ -40,7 +40,7 @@ export function AuthGate() {
 
   if (typeof window !== "undefined" && !window.isSecureContext) {
     return (
-      <div className="mx-auto flex min-h-[100dvh] w-full max-w-app flex-col justify-center px-6 pb-16 text-center">
+      <div className="pf pf-workspace mx-auto flex min-h-[100dvh] w-full max-w-app flex-col justify-center px-6 pb-16 text-center">
         <h1 className="text-xl font-semibold tracking-tight">工作台需要 HTTPS</h1>
         <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
           浏览器只在 HTTPS 下开放解密所需的 Web Crypto。当前服务器是 HTTP，请到 GitHub Pages 使用工作台。
@@ -59,7 +59,7 @@ export function AuthGate() {
   }
 
   return (
-    <div className="mx-auto flex min-h-[100dvh] w-full max-w-app flex-col justify-center px-6 pb-16">
+    <div className="pf pf-workspace mx-auto flex min-h-[100dvh] w-full max-w-app flex-col justify-center px-6 pb-16">
       <div className="mb-8 text-center">
         <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-lg shadow-brand-600/20">
           <svg viewBox="0 0 32 32" className="h-8 w-8" fill="none" stroke="currentColor" strokeWidth="2.2">

@@ -13,8 +13,11 @@ import { removeRaw, storage } from "./lib/storage";
 import { clsx } from "./lib/util";
 import { AskPage } from "./pages/AskPage";
 import { AgentPage } from "./pages/AgentPage";
+import { AboutPage } from "./pages/AboutPage";
+import { AdminPage } from "./pages/AdminPage";
 import { PortfolioPage } from "./pages/PortfolioPage";
 import { ProjectPage } from "./pages/ProjectPage";
+import { ProjectsPage } from "./pages/ProjectsPage";
 import { SettingsPage } from "./pages/SettingsPage";
 import { TodayPage } from "./pages/TodayPage";
 import type { Meta } from "./types";
@@ -101,8 +104,11 @@ export default function App() {
       <AppContext.Provider value={ctx}>
         <Routes>
           <Route path="/" element={<PortfolioPage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/project/:slug" element={<ProjectPage />} />
           <Route path="/agent" element={<AgentPage />} />
+          <Route path="/edit" element={<AdminPage />} />
           <Route path="/unlock" element={<AuthGate />} />
           <Route element={<WorkspaceLayout />}>
             <Route path="/today" element={<TodayPage />} />

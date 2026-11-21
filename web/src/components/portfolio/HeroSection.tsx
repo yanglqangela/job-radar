@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import { agentHref } from "../../lib/agent";
 import { usePrefersReducedMotion } from "../../hooks/usePrefersReducedMotion";
-import { scrollToId } from "../../lib/scroll";
 import type { PortfolioData } from "../../types.portfolio";
 import { HeroPortrait } from "./HeroPortrait";
 
@@ -23,8 +23,12 @@ export function HeroSection({ data }: { data: PortfolioData }) {
       frame = window.requestAnimationFrame(() => {
         frame = 0;
         const rect = element.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+        const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
         element.style.setProperty("--pf-mx", `${event.clientX - rect.left}px`);
         element.style.setProperty("--pf-my", `${event.clientY - rect.top}px`);
+        element.style.setProperty("--pf-character-x", `${x * 12}px`);
+        element.style.setProperty("--pf-character-y", `${y * 8}px`);
       });
     };
 
@@ -74,20 +78,15 @@ export function HeroSection({ data }: { data: PortfolioData }) {
               <a href={agentHref()} className="pf-text-link pf-text-link--signal">
                 问 Agent
               </a>
-              <button
-                type="button"
-                className="pf-text-link"
-                onClick={() => scrollToId("projects", reduced ? "auto" : "smooth")}
-              >
-                看项目
-              </button>
-              <button
-                type="button"
-                className="pf-text-link"
-                onClick={() => scrollToId("contact", reduced ? "auto" : "smooth")}
-              >
-                联系我
-              </button>
+              <Link to="/projects" className="pf-text-link">
+                进入项目展厅
+              </Link>
+              <Link to="/about" className="pf-text-link">
+                经历与技能
+              </Link>
+              <Link to="/edit" className="pf-text-link">
+                编辑入口
+              </Link>
             </div>
           </div>
         </div>

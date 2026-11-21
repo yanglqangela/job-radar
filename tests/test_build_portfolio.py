@@ -187,11 +187,13 @@ def test_projection_diff_detects_stale_output():
 def test_real_content_builds():
     content = json.loads((ROOT / "content" / "portfolio.json").read_text(encoding="utf-8"))
     data, warnings = build_portfolio(content, None, public_dir=PUBLIC_DIR)
-    assert len(data["projects"]) == 3
+    assert len(data["projects"]) == 5
     assert {project["slug"] for project in data["projects"]} == {
         "lq-agent",
         "kb-agent",
         "job-radar",
+        "dosh-global",
+        "cpi",
     }
     assert data["timeline"]["items"]
     # 邮箱为空只应产生一条提示

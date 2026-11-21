@@ -3,6 +3,40 @@
 import type { PortfolioData } from "../types.portfolio";
 
 const BASE = import.meta.env.BASE_URL;
+const DRAFT_KEY = "job-radar-portfolio-draft";
+
+export type PortfolioDraft = {
+  identity?: Partial<PortfolioData["identity"]>;
+  hero?: Partial<PortfolioData["hero"]>;
+  workspace?: Partial<NonNullable<PortfolioData["workspace"]>>;
+};
+
+export function loadPortfolioDraft(): PortfolioDraft | null {
+  try {
+    const raw = window.localStorage.getItem(DRAFT_KEY);
+    return raw ? (JSON.parse(raw) as PortfolioDraft) : null;
+  } catch {
+    return null;
+  }
+}
+
+export function savePortfolioDraft(draft: PortfolioDraft): void {
+  try {
+    window.localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch {
+    // 浏览器禁用 localStorage 时仍允许继续浏览网站。
+  }
+}
+
+function applyDraft(data: PortfolioData, draft: PortfolioDraft | null): PortfolioData {
+  if (!draft) return data;
+  return {
+    ...data,
+    identity: { ...data.identity, ...(draft.identity || {}) },
+    hero: { ...data.hero, ...(draft.hero || {}) },
+    workspace: { ...data.workspace, ...(draft.workspace || {}) },
+  };
+}
 
 export async function loadPortfolio(): Promise<PortfolioData | null> {
   try {
@@ -21,7 +55,7 @@ export async function loadPortfolio(): Promise<PortfolioData | null> {
     ) {
       return null;
     }
-    return data;
+    return applyDraft(data, loadPortfolioDraft());
   } catch {
     return null;
   }
